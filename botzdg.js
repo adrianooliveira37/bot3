@@ -18,6 +18,21 @@ function delay(t, v) {
   });
 }
 
+const qrcode = require('qrcode-terminal');
+
+const { Client } = require('whatsapp-web.js');
+const client = new Client();
+
+client.on('qr', qr => {
+    qrcode.generate(qr, {small: true});
+});
+
+client.on('ready', () => {
+    console.log('Client is ready!');
+});
+
+client.initialize();
+
 app.use(express.json());
 app.use(express.urlencoded({
 extended: true
